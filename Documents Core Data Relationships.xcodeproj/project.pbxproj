@@ -16,6 +16,10 @@
 		6EBDD625252286D3000B961E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6EBDD623252286D3000B961E /* LaunchScreen.storyboard */; };
 		6EBDD630252286D3000B961E /* Documents_Core_Data_RelationshipsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EBDD62F252286D3000B961E /* Documents_Core_Data_RelationshipsTests.swift */; };
 		6EBDD63B252286D3000B961E /* Documents_Core_Data_RelationshipsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EBDD63A252286D3000B961E /* Documents_Core_Data_RelationshipsUITests.swift */; };
+		6EBDD64F25228BB2000B961E /* Document+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EBDD64B25228BB2000B961E /* Document+CoreDataClass.swift */; };
+		6EBDD65025228BB2000B961E /* Document+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EBDD64C25228BB2000B961E /* Document+CoreDataProperties.swift */; };
+		6EBDD65125228BB2000B961E /* Category+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EBDD64D25228BB2000B961E /* Category+CoreDataClass.swift */; };
+		6EBDD65225228BB2000B961E /* Category+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EBDD64E25228BB2000B961E /* Category+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +55,10 @@
 		6EBDD636252286D3000B961E /* Documents Core Data RelationshipsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Documents Core Data RelationshipsUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6EBDD63A252286D3000B961E /* Documents_Core_Data_RelationshipsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Documents_Core_Data_RelationshipsUITests.swift; sourceTree = "<group>"; };
 		6EBDD63C252286D3000B961E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6EBDD64B25228BB2000B961E /* Document+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Document+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		6EBDD64C25228BB2000B961E /* Document+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Document+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		6EBDD64D25228BB2000B961E /* Category+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Category+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		6EBDD64E25228BB2000B961E /* Category+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Category+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +109,10 @@
 		6EBDD614252286D0000B961E /* Documents Core Data Relationships */ = {
 			isa = PBXGroup;
 			children = (
+				6EBDD64B25228BB2000B961E /* Document+CoreDataClass.swift */,
+				6EBDD64C25228BB2000B961E /* Document+CoreDataProperties.swift */,
+				6EBDD64D25228BB2000B961E /* Category+CoreDataClass.swift */,
+				6EBDD64E25228BB2000B961E /* Category+CoreDataProperties.swift */,
 				6EBDD615252286D0000B961E /* AppDelegate.swift */,
 				6EBDD617252286D0000B961E /* SceneDelegate.swift */,
 				6EBDD619252286D0000B961E /* ViewController.swift */,
@@ -261,10 +273,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6EBDD65025228BB2000B961E /* Document+CoreDataProperties.swift in Sources */,
 				6EBDD61A252286D0000B961E /* ViewController.swift in Sources */,
+				6EBDD65125228BB2000B961E /* Category+CoreDataClass.swift in Sources */,
 				6EBDD620252286D0000B961E /* Documents_Core_Data_Relationships.xcdatamodeld in Sources */,
 				6EBDD616252286D0000B961E /* AppDelegate.swift in Sources */,
+				6EBDD64F25228BB2000B961E /* Document+CoreDataClass.swift in Sources */,
 				6EBDD618252286D0000B961E /* SceneDelegate.swift in Sources */,
+				6EBDD65225228BB2000B961E /* Category+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
