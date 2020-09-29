@@ -12,6 +12,7 @@ class DocumentsViewController: UIViewController {
     @IBOutlet weak var documentsTV: UITableView!
     
     var category: Category?
+    var documentz: [Document?] = []
     
     let dateFormatter = DateFormatter()
     
@@ -31,15 +32,25 @@ class DocumentsViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func addNewExpense(_ sender: Any) {
-        performSegue(withIdentifier: "Title", sender: self)
+    @IBAction func addNewDoc(_ sender: Any) {
+        performSegue(withIdentifier: "newDocument", sender: self)
     }
+   
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let destination = segue.destination as? NewDocViewController
         else{
             return
         }
         destination.category = category
+        //let see if this is right
+        if segue.identifier == "selectedDocument" {
+            if let destination = segue.destination as? NewDocViewController,
+                let row = documentsTV.indexPathForSelectedRow?.row {
+                destination.document =  documentz[row]
+
+            }
+
+        }
     }
     func deleteDoc(at indexPath: IndexPath){
         guard let document = category?.documents?[indexPath.row], let managedContext = document.managedObjectContext else {
@@ -64,10 +75,12 @@ extension DocumentsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = documentsTV.dequeueReusableCell(withIdentifier: "docCell", for: indexPath)
-        if let document = category?.documents?[indexPath.row]{
-            cell.textLabel?.text = document.name
+        if let cell = cell as? DocumentsTableViewCell,
+        let document = category?.documents?[indexPath.row]{
+            cell.nameLabel?.text = document.name
+            cell.sizeLabel?.text = String(document.size ?? 0) + "bytes"
             if let date = document.date{
-                cell.detailTextLabel?.text = dateFormatter.string(from:date)
+                cell.dateLabel?.text = dateFormatter.string(from:date)
             }
         }
         return cell
@@ -81,8 +94,9 @@ extension DocumentsViewController: UITableViewDataSource {
 
 extension DocumentsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "Title", sender: self)
+        performSegue(withIdentifier: "NewDocument", sender: self)
     }
+  
 }
 
 

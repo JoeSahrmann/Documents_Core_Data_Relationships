@@ -13,12 +13,14 @@ class NewDocViewController: UIViewController, UITextViewDelegate {
     @IBOutlet weak var contentTF: UITextView!
    
     var category: Category?
+    var document: Document?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         nameTF.delegate = self
         contentTF.delegate = self
+        
         
     }
 
@@ -32,7 +34,10 @@ class NewDocViewController: UIViewController, UITextViewDelegate {
         contentTF.resignFirstResponder()
     }
     
-    @IBAction func saveExpense(_ sender: Any) {
+    @IBAction func nameChanged(_ sender: Any) {
+        title = nameTF.text
+    }
+    @IBAction func saveDoc(_ sender: Any) {
         let name = nameTF.text
         let content = contentTF.text
         let size = Int64(contentTF.text.count)
@@ -49,6 +54,7 @@ class NewDocViewController: UIViewController, UITextViewDelegate {
             }
         }
     }
+    
 }
 
 extension NewDocViewController: UITextFieldDelegate {
