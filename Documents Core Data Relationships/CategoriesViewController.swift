@@ -13,6 +13,7 @@ class CategoriesViewController: UIViewController {
     @IBOutlet weak var categoriesTV: UITableView!
     
     var categories: [Category] = []
+    var cat: Category?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,6 +47,7 @@ class CategoriesViewController: UIViewController {
     }
     func deletCategory(at indexPath: IndexPath){
         let category = categories[indexPath.row]
+     
         guard  let managedContext = category.managedObjectContext else{
             return
         }
@@ -73,9 +75,50 @@ extension CategoriesViewController: UITableViewDataSource, UITableViewDelegate {
         cell.textLabel?.text = category.title
         return cell
     }
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete{
-            deletCategory(at: indexPath)
-        }
+//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+//        if editingStyle == .delete{
+//            deletCategory(at: indexPath)
+//    }
+  //  }
+    
+     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+      //this is the first swipe action that is created to let the user choose to delet or edit
+        let action = UIContextualAction(style: .normal, title: "Delete/Edit") { (action, view, completion) in
+            //this is where the action sheet controler is created to pop either delet or edit
+            let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+            //first action is added eddit
+            alert.addAction(UIAlertAction(title: "Edit", style: .default) { (action) in
+               //this should take you to the screen to edit the title
+                self.performSegue(withIdentifier: "NewCategory", sender: self.categories[indexPath.row].title)
+            })
+            //this adds the delet action
+            alert.addAction(UIAlertAction(title: "Delete", style: .destructive) { (action) in
+                
+                if self.categories[indexPath.row].documents?.count ?? 0 > 0{
+                    //this is where the confirmation is made if it has more than 0 documents
+                    let confirm = UIAlertController(title: "Are You Sure", message: "There are \(String(self.categories[indexPath.row].documents?.count ?? 0)) Documents in \(String(describing: self.categories[indexPath.row].title ?? ""))", preferredStyle: .actionSheet)
+                    //to cancle the deletion
+                confirm.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { (UIAlertAction) in
+                    completion(true)
+                }))
+                    //go through with the deletion
+                confirm.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { (UIAlertAction) in
+                    self.deletCategory(at: indexPath)
+                }))
+                    self.present(confirm, animated: true, completion: nil)
+
+                }else{
+                    self.deletCategory(at: indexPath)
+                }
+            })
+
+            // This sets up the alert to show next to the button
+            alert.popoverPresentationController?.sourceView = view
+            alert.popoverPresentationController?.sourceRect = view.bounds
+
+            self.present(alert, animated: true, completion: nil)
+                    }
+
+        return UISwipeActionsConfiguration(actions: [action])
     }
 }

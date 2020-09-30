@@ -4,7 +4,7 @@
 //
 //  Created by Joe Sahrmann on 9/28/20.
 //
-
+import CoreData
 import UIKit
 
 class DocumentsViewController: UIViewController {
@@ -12,7 +12,7 @@ class DocumentsViewController: UIViewController {
     @IBOutlet weak var documentsTV: UITableView!
     
     var category: Category?
-    var documentz: [Document?] = []
+    var documentz = [Document]()
     
     let dateFormatter = DateFormatter()
     
@@ -21,10 +21,25 @@ class DocumentsViewController: UIViewController {
         
         dateFormatter.timeStyle = .long
         dateFormatter.dateStyle = .long
+        title = category?.title
+        
 
     }
     override func viewWillAppear(_ animated: Bool) {
-        self.documentsTV.reloadData()
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else{
+            return
+        }
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let fetchRequest: NSFetchRequest<Document> = Document.fetchRequest()
+        do {
+            documentz = try managedContext.fetch(fetchRequest)
+           
+            self.documentsTV.reloadData()
+            
+        }catch{
+            print("fetch failed")
+        }
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -42,15 +57,15 @@ class DocumentsViewController: UIViewController {
             return
         }
         destination.category = category
-        //let see if this is right
-        if segue.identifier == "selectedDocument" {
-            if let destination = segue.destination as? NewDocViewController,
-                let row = documentsTV.indexPathForSelectedRow?.row {
-                destination.document =  documentz[row]
-
-            }
-
-        }
+      
+       // let see if this is right
+//        if segue.identifier == "selectedDocument" {
+//            guard let destination = segue.destination as? NewDocViewController,
+//               let row = self.documentsTV.indexPathForSelectedRow?.row else{
+//                return
+//                }
+//            destination.document = documentz[row]
+//        }
     }
     func deleteDoc(at indexPath: IndexPath){
         guard let document = category?.documents?[indexPath.row], let managedContext = document.managedObjectContext else {
@@ -78,7 +93,7 @@ extension DocumentsViewController: UITableViewDataSource {
         if let cell = cell as? DocumentsTableViewCell,
         let document = category?.documents?[indexPath.row]{
             cell.nameLabel?.text = document.name
-            cell.sizeLabel?.text = String(document.size ?? 0) + "bytes"
+            cell.sizeLabel?.text = String(document.size ?? 0) + " bytes"
             if let date = document.date{
                 cell.dateLabel?.text = dateFormatter.string(from:date)
             }
@@ -94,7 +109,8 @@ extension DocumentsViewController: UITableViewDataSource {
 
 extension DocumentsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "NewDocument", sender: self)
+         performSegue(withIdentifier: "newDocument", sender: self)
+                  
     }
   
 }

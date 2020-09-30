@@ -10,7 +10,6 @@
         <!--Documents Categories-->
         <scene sceneID="Veu-84-2Hc">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="95K-2o-kTO" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController title="Documents Categories" id="Xvs-DI-QSJ" customClass="CategoriesViewController" customModule="Documents_Core_Data_Relationships" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="dM6-Rv-H6v">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
@@ -61,7 +60,7 @@
                         <barButtonItem key="backBarButtonItem" title=" " id="pyF-aM-Hkf"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="Xtg-hf-GxH">
                             <connections>
-                                <segue destination="VVJ-T6-OYe" kind="show" id="hcR-Mn-PwA"/>
+                                <segue destination="VVJ-T6-OYe" kind="show" identifier="NewCategory" id="hcR-Mn-PwA"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -69,6 +68,7 @@
                         <outlet property="categoriesTV" destination="ABD-bY-VAD" id="zS4-nI-KhT"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="95K-2o-kTO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="920" y="-555"/>
         </scene>
