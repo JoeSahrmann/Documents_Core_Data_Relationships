@@ -13,6 +13,7 @@ class CategoriesViewController: UIViewController {
     @IBOutlet weak var categoriesTV: UITableView!
     
     var categories: [Category] = []
+    var catArray = [Category]()
     var cat: Category?
     
     override func viewDidLoad() {
@@ -44,7 +45,14 @@ class CategoriesViewController: UIViewController {
             return
         }
         destination.category = categories[selectedRow]
-    }
+        if segue.identifier == "NewCategory" {
+                   guard let destination = segue.destination as? NewCatViewController,
+                      let row = self.categoriesTV.indexPathForSelectedRow?.row else{
+                       return
+                       }
+                   destination.existingCat = categories[row]
+               }
+   }
     func deletCategory(at indexPath: IndexPath){
         let category = categories[indexPath.row]
      
@@ -75,11 +83,14 @@ extension CategoriesViewController: UITableViewDataSource, UITableViewDelegate {
         cell.textLabel?.text = category.title
         return cell
     }
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        performSegue(withIdentifier: "NewCategory", sender: self)
+//    }
 //    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
 //        if editingStyle == .delete{
 //            deletCategory(at: indexPath)
 //    }
-  //  }
+//    }
     
      func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
       //this is the first swipe action that is created to let the user choose to delet or edit
@@ -89,7 +100,7 @@ extension CategoriesViewController: UITableViewDataSource, UITableViewDelegate {
             //first action is added eddit
             alert.addAction(UIAlertAction(title: "Edit", style: .default) { (action) in
                //this should take you to the screen to edit the title
-                self.performSegue(withIdentifier: "NewCategory", sender: self.categories[indexPath.row].title)
+                self.performSegue(withIdentifier: "NewCategory", sender: self)
             })
             //this adds the delet action
             alert.addAction(UIAlertAction(title: "Delete", style: .destructive) { (action) in
@@ -121,4 +132,7 @@ extension CategoriesViewController: UITableViewDataSource, UITableViewDelegate {
 
         return UISwipeActionsConfiguration(actions: [action])
     }
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        performSegue(withIdentifier: "NewCategory", sender: self)
+//    }
 }

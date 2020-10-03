@@ -26,20 +26,8 @@ class DocumentsViewController: UIViewController {
 
     }
     override func viewWillAppear(_ animated: Bool) {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else{
-            return
-        }
-        let managedContext = appDelegate.persistentContainer.viewContext
-        let fetchRequest: NSFetchRequest<Document> = Document.fetchRequest()
-        do {
-            documentz = try managedContext.fetch(fetchRequest)
-           
-            self.documentsTV.reloadData()
-            
-        }catch{
-            print("fetch failed")
-        }
-        
+        self.documentsTV.reloadData()
+       
     }
 
     override func didReceiveMemoryWarning() {
@@ -64,7 +52,7 @@ class DocumentsViewController: UIViewController {
 //               let row = self.documentsTV.indexPathForSelectedRow?.row else{
 //                return
 //                }
-//            destination.document = documentz[row]
+//            destination.existingdoc = documentz[row]
 //        }
     }
     func deleteDoc(at indexPath: IndexPath){
@@ -93,7 +81,7 @@ extension DocumentsViewController: UITableViewDataSource {
         if let cell = cell as? DocumentsTableViewCell,
         let document = category?.documents?[indexPath.row]{
             cell.nameLabel?.text = document.name
-            cell.sizeLabel?.text = String(document.size ?? 0) + " bytes"
+            cell.sizeLabel?.text = String(document.size ?? 0) + " byte(s)"
             if let date = document.date{
                 cell.dateLabel?.text = dateFormatter.string(from:date)
             }
@@ -109,7 +97,7 @@ extension DocumentsViewController: UITableViewDataSource {
 
 extension DocumentsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-         performSegue(withIdentifier: "newDocument", sender: self)
+       //  performSegue(withIdentifier: "newDocument", sender: self)
                   
     }
   
